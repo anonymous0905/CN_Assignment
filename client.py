@@ -1,5 +1,6 @@
 import socket
 import threading
+import base64
 
 class Client:
     def __init__(self, host, port):
@@ -20,28 +21,30 @@ class Client:
             # wait for the user to enter a message
             message = input()
             if message.lower() == 'quit':
-                try:
-                    # send the message to the server
-                    self.socket.send(bytes(message, 'utf-8'))
-                except:
-
-                    exit()
+                # if the user enters "quit", send a message to the server and exit the loop
+                self.socket.send(bytes(message, 'utf-8'))
+                # close the client socket
+                self.socket.close()
                 break
             else:
-                # send the message to the server
-                self.socket.send(bytes(message, 'utf-8'))
+                # encode the message using base64
+                encoded_message = base64.b64encode(bytes(message, 'utf-8'))
+                # send the encoded message to the server
+                self.socket.send(encoded_message)
 
     def receive(self):
         while True:
             # wait for a message from the server
             message = self.socket.recv(1024)
             if message:
+                # decode the message using base64
+                decoded_message = base64.b64decode(bytes(message,'utf-8').decode('utf-8'))
                 # print the message
-                print(message.decode('utf-8'))
+                print(decoded_message)
 
 if __name__ == "__main__":
+    # get the user's username
+    username = input("Enter your username: ")
     # create a new client object and start sending messages to the server
     client = Client("localhost", 56234)
     client.start()
-
-#init push
