@@ -49,8 +49,8 @@ class Server:
                     # if there's no message, remove the client from the list of connected clients and close its socket
                     print(f"{client_address[0]}:{client_address[1]} has disconnected")
                     self.broadcast(bytes(f"{client_address[0]}:{client_address[1]} has disconnected", 'utf-8'), client_socket)
-                    del self.clients[client_socket]
                     client_socket.close()
+                    del self.clients[client_socket]
                     break
             except:
                 # if there's an error, remove the client from the list of connected clients and close its socket

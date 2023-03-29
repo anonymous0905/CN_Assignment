@@ -23,11 +23,9 @@ class Client:
                 try:
                     # send the message to the server
                     self.socket.send(bytes(message, 'utf-8'))
-                    self.socket.close()
-                    exit(0)
                 except:
-                    self.socket.close()
-                    exit(0)
+
+                    exit()
                 break
             else:
                 # send the message to the server
