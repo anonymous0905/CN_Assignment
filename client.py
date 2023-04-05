@@ -30,9 +30,9 @@ class Client:
                 try:
                     # send the message to the server
                     self.socket.send(bytes(message, 'utf-8'))
+                except:
                     # close the socket
                     self.socket.close()
-                except:
                     exit(0)
                 break
             else:
