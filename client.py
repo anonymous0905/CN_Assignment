@@ -23,22 +23,19 @@ class Client:
         receive_thread = threading.Thread(target=self.receive)
         receive_thread.start()
 
+        def quit():
+            self.socket.send(bytes('quit', 'utf-8'))
+            exit(0)
+
         while True:
             # wait for the user to enter a message
             message = input()
             if message.lower() == 'quit':
-                try:
-                    # send the message to the server
-                    self.socket.send(bytes(message, 'utf-8'))
-                except:
-                    # close the socket
-                    self.socket.close()
-                    exit(0)
-                break
+                quit()
             else:
                 # send the message to the server
                 self.socket.send(bytes(message, 'utf-8'))
-
+        exit(0)
     def receive(self):
         while True:
             # wait for a message from the server
