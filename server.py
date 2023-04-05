@@ -1,6 +1,13 @@
 import socket
 import threading
 
+# CN ASSIGNMENT - 1
+# Topic: Client-Server Chat Room
+# Group Members:
+# Shashank Reddy Prakash - PES2UG21CS491
+# Shishir B - PES2UG21CS494
+# Shree Hari Nadig B M - PES2UG21CS499
+
 class Server:
     def __init__(self, host, port):
         self.host = host # server IP address
@@ -46,7 +53,7 @@ class Server:
                     # broadcast the message to all connected clients except the sender
                     self.broadcast(bytes(message_with_address, 'utf-8'), client_socket)
                 else:
-                    # if there's no message, remove the client from the list of connected clients and close its socket
+                    # if message is 'quit' remove the client from the list of connected clients and close its socket
                     print(f"{client_address[0]}:{client_address[1]} has disconnected")
                     self.broadcast(bytes(f"{client_address[0]}:{client_address[1]} has disconnected", 'utf-8'), client_socket)
                     client_socket.close()

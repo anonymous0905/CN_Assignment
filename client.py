@@ -1,6 +1,13 @@
 import socket
 import threading
 
+# CN ASSIGNMENT - 1
+# Topic: Client-Server Chat Room
+# Group Members:
+# Shashank Reddy Prakash - PES2UG21CS491
+# Shishir B - PES2UG21CS494
+# Shree Hari Nadig B M - PES2UG21CS499
+
 class Client:
     def __init__(self, host, port):
         self.host = host # server IP address
@@ -23,9 +30,10 @@ class Client:
                 try:
                     # send the message to the server
                     self.socket.send(bytes(message, 'utf-8'))
+                    # close the socket
+                    self.socket.close()
                 except:
-
-                    exit()
+                    exit(0)
                 break
             else:
                 # send the message to the server
